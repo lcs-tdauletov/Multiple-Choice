@@ -1,35 +1,53 @@
-//
-//  main.swift
-//  MultipleChoice
-//
-
 import Foundation
 
-// INPUT
-// Collect and filter user input here
+var expectedLines = 0
+//Collecting the input
 
-// PROCESS
-// Implement the primary logic of the problem here
-// Some output may be given here if you desire
-
-// Example of how to collect multiple input lines
-let expectedLines = 4
-print("Please enter the \(expectedLines) of text:")
-for _ in 1...expectedLines {
-    
-    // Get the input (use guard-let to guarantee it is not nil)
-    // and then print it out
-    guard let givenLine = readLine() else {
-        // If someone enters nil input, just skip to the next line
+while true {
+    print("How many lines do you want me to process?")
+    guard let givenNumber = readLine() else {
+        continue
+    }
+    guard let givenInt = Int(givenNumber) else {
         continue
     }
     
-    // Now we have the line, we can print it out, analyze it as needed, et cetera
-    print(givenLine)
+    if givenInt > 9_999 || givenInt < 1 {
+        continue
+    }
     
+    expectedLines = givenInt
+    
+    break
+}
+
+// Process
+var count = 0
+var StringArray : [String] = []
+outer: for _ in 1...2 * expectedLines {
+    print("Give me some more multiple choice answers")
+    inner: while true {
+        print("Just keys, please")
+        guard let givenLine = readLine() else {
+            continue
+        
+        }
+        if givenLine == "A" || givenLine == "B" || givenLine == "C" || givenLine == "D" {
+            StringArray.append(givenLine)
+            break inner
+        } else {
+            continue
+        }
+    }
+}
+
+for i in 0...(StringArray.count - 1) / 2 {
+    if StringArray[i] == StringArray[i + (StringArray.count) / 2] {
+        count += 1
+    }
 }
 
 // OUTPUT
 // Report results to the user here
-
+print("the number of correct answers is \(count) ")
 
